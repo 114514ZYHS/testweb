@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>下载站 - sjkh.cc.cd</title>
     <style>
-        /* 整体直角风格，无圆角 */
+        /* 直角风格，无圆角，无表情 */
         * { box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -18,9 +18,9 @@
         h1 {
             font-size: 28px;
             font-weight: 600;
-            margin-bottom: 6px;
             border-bottom: 2px solid #d0d7de;
             padding-bottom: 12px;
+            margin-bottom: 6px;
         }
         .sub {
             color: #57606a;
@@ -31,7 +31,6 @@
         .file-list {
             background: #ffffff;
             border: 1px solid #d0d7de;
-            /* 无圆角 */
         }
         .file-item {
             display: flex;
@@ -40,12 +39,8 @@
             padding: 14px 20px;
             border-bottom: 1px solid #e1e4e8;
         }
-        .file-item:last-child {
-            border-bottom: none;
-        }
-        .file-item:hover {
-            background: #f6f8fa;
-        }
+        .file-item:last-child { border-bottom: none; }
+        .file-item:hover { background: #f6f8fa; }
         .file-info {
             display: flex;
             align-items: center;
@@ -67,9 +62,7 @@
             text-decoration: none;
             font-size: 16px;
         }
-        .file-name:hover {
-            text-decoration: underline;
-        }
+        .file-name:hover { text-decoration: underline; }
         .file-size {
             color: #57606a;
             font-size: 14px;
@@ -83,22 +76,9 @@
             cursor: pointer;
             text-decoration: none;
             font-weight: 500;
-            /* 直角 */
             border-radius: 0;
-            transition: background 0.15s;
         }
-        .download-btn:hover {
-            background: #22863a;
-        }
-        .loading, .empty, .error {
-            padding: 40px 20px;
-            text-align: center;
-            color: #57606a;
-            font-size: 16px;
-        }
-        .error {
-            color: #cf222e;
-        }
+        .download-btn:hover { background: #22863a; }
         .footer {
             margin-top: 28px;
             text-align: center;
@@ -107,13 +87,7 @@
             border-top: 1px solid #d0d7de;
             padding-top: 16px;
         }
-        code {
-            background: #e9ecef;
-            padding: 2px 8px;
-            font-size: 14px;
-            border-radius: 0;
-        }
-        /* 暗黑模式适配（保持直角） */
+        code { background: #e9ecef; padding: 2px 8px; font-size: 14px; }
         @media (prefers-color-scheme: dark) {
             body { background: #0d1117; color: #c9d1d9; }
             .file-list { background: #161b22; border-color: #30363d; }
@@ -132,90 +106,45 @@
 </head>
 <body>
     <h1>下载仓库</h1>
-    <div class="sub">文件存放于 <code>download</code> 文件夹，页面自动刷新列表</div>
+    <div class="sub">文件存放于 <code>download</code> 文件夹，点击即下载</div>
 
-    <div id="fileContainer" class="file-list">
-        <div class="loading">正在扫描文件列表...</div>
-    </div>
-    <div class="footer">114514zyhs · GitHub Pages</div>
+    <div id="fileContainer" class="file-list"></div>
+    <div class="footer">114514zyhs · 下载走 sjkh.cc.cd 域名</div>
 
     <script>
-        (function() {
-            const USERNAME = '114514zyhs';
-            const REPO = 'test';
-            const FOLDER = 'download';
-            const container = document.getElementById('fileContainer');
+        // ============================================================
+        // 你的文件列表（根据你上传的文件手动填写）
+        // 格式：{ name: '文件名', size: '文件大小', type: '分类标签' }
+        // ============================================================
+        const files = [
+            { name: '23c99eaa0c257b51d154235593c0b30c1630132346.jpg', size: '未知', type: '图片' },
+            { name: '2fa.html', size: '未知', type: '网页' },
+            { name: 'adia64.apk', size: '未知', type: '应用' },
+            { name: 'mfrc522.pdf', size: '未知', type: 'PDF' }
+        ];
+        // ============================================================
 
-            async function fetchFiles() {
-                try {
-                    const apiUrl = `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${FOLDER}`;
-                    const resp = await fetch(apiUrl);
+        const container = document.getElementById('fileContainer');
 
-                    if (resp.status === 404) {
-                        container.innerHTML = `<div class="empty">文件夹 download 尚未创建或为空，请先在仓库中建立该目录并上传文件。</div>`;
-                        return;
-                    }
-                    if (!resp.ok) {
-                        throw new Error(`API请求失败 (HTTP ${resp.status})`);
-                    }
-                    const data = await resp.json();
-                    if (!Array.isArray(data)) {
-                        throw new Error('返回数据格式异常');
-                    }
-
-                    const files = data.filter(item => item.type === 'file');
-                    if (files.length === 0) {
-                        container.innerHTML = `<div class="empty">当前没有任何文件，请上传文件到 download 文件夹。</div>`;
-                        return;
-                    }
-
-                    // 按最近上传（SHA 变化）排序，大致越新越靠前
-                    files.sort((a, b) => (b.sha || '').localeCompare(a.sha || ''));
-
-                    let html = '';
-                    files.forEach(file => {
-                        const size = file.size;
-                        let sizeStr = '';
-                        if (size < 1024) sizeStr = size + ' B';
-                        else if (size < 1024 * 1024) sizeStr = (size / 1024).toFixed(1) + ' KB';
-                        else sizeStr = (size / (1024 * 1024)).toFixed(2) + ' MB';
-
-                        const ext = (file.name.split('.').pop() || '').toLowerCase();
-                        // 使用纯文本表示文件类型
-                        let typeLabel = ext.toUpperCase() || '文件';
-                        if (['zip','rar','7z','gz','bz2'].includes(ext)) typeLabel = '压缩包';
-                        else if (['exe','msi','dmg','pkg','deb','rpm'].includes(ext)) typeLabel = '程序';
-                        else if (['pdf'].includes(ext)) typeLabel = 'PDF';
-                        else if (['jpg','jpeg','png','gif','webp','bmp','svg'].includes(ext)) typeLabel = '图片';
-                        else if (['mp4','mkv','avi','mov','wmv','flv','webm'].includes(ext)) typeLabel = '视频';
-                        else if (['mp3','wav','flac','aac','ogg'].includes(ext)) typeLabel = '音频';
-                        else if (['txt','md','log'].includes(ext)) typeLabel = '文本';
-
-                        // 下载链接使用当前域名下的 /download/ 路径
-                        const downloadUrl = `/download/${encodeURIComponent(file.name)}`;
-
-                        html += `
-                            <div class="file-item">
-                                <div class="file-info">
-                                    <span class="file-ext">${typeLabel}</span>
-                                    <a href="${downloadUrl}" class="file-name" target="_blank">${file.name}</a>
-                                    <span class="file-size">(${sizeStr})</span>
-                                </div>
-                                <a href="${downloadUrl}" class="download-btn" download>下载</a>
-                            </div>
-                        `;
-                    });
-
-                    container.innerHTML = html;
-
-                } catch (err) {
-                    console.error(err);
-                    container.innerHTML = `<div class="error">加载失败：${err.message}<br><span style="font-size:14px;">请检查仓库名、文件夹名是否正确，或稍后重试。</span></div>`;
-                }
-            }
-
-            fetchFiles();
-        })();
+        if (files.length === 0) {
+            container.innerHTML = `<div style="padding:40px 20px;text-align:center;color:#57606a;">当前列表为空，请在代码中 <code>files</code> 数组里添加文件信息。</div>`;
+        } else {
+            let html = '';
+            files.forEach(file => {
+                const downloadUrl = `/download/${encodeURIComponent(file.name)}`;
+                html += `
+                    <div class="file-item">
+                        <div class="file-info">
+                            <span class="file-ext">${file.type || '文件'}</span>
+                            <a href="${downloadUrl}" class="file-name" target="_blank">${file.name}</a>
+                            <span class="file-size">(${file.size})</span>
+                        </div>
+                        <a href="${downloadUrl}" class="download-btn" download>下载</a>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
     </script>
 </body>
 </html>
