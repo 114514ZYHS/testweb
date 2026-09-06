@@ -3,150 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>下载站 - sjkh.cc.cd</title>
+    <title>114514ZYHS的测试页</title>
     <style>
-        /* 直角风格，无圆角，无表情 */
         * { box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            max-width: 920px;
-            margin: 30px auto;
+            max-width: 800px;
+            margin: 40px auto;
             padding: 0 20px;
             background: #f0f2f5;
             color: #1e1e1e;
         }
         h1 {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 600;
             border-bottom: 2px solid #d0d7de;
             padding-bottom: 12px;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
         .sub {
             color: #57606a;
-            font-size: 15px;
-            margin-top: -6px;
-            margin-bottom: 24px;
+            font-size: 16px;
+            margin-bottom: 30px;
         }
-        .file-list {
+        .nav-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .nav-item {
+            display: block;
             background: #ffffff;
             border: 1px solid #d0d7de;
-        }
-        .file-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 20px;
-            border-bottom: 1px solid #e1e4e8;
-        }
-        .file-item:last-child { border-bottom: none; }
-        .file-item:hover { background: #f6f8fa; }
-        .file-info {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            flex-wrap: wrap;
-        }
-        .file-ext {
-            display: inline-block;
-            background: #e9ecef;
-            padding: 2px 10px;
-            font-size: 13px;
-            font-weight: 500;
-            color: #24292e;
-            font-family: monospace;
-        }
-        .file-name {
-            font-weight: 500;
+            padding: 16px 20px;
+            text-decoration: none;
             color: #0969da;
-            text-decoration: none;
-            font-size: 16px;
-        }
-        .file-name:hover { text-decoration: underline; }
-        .file-size {
-            color: #57606a;
-            font-size: 14px;
-        }
-        .download-btn {
-            background: #2da44e;
-            color: #fff;
-            border: none;
-            padding: 6px 18px;
-            font-size: 14px;
-            cursor: pointer;
-            text-decoration: none;
             font-weight: 500;
-            border-radius: 0;
+            transition: background 0.15s;
         }
-        .download-btn:hover { background: #22863a; }
+        .nav-item:hover {
+            background: #f6f8fa;
+        }
+        .nav-item .desc {
+            display: block;
+            font-weight: normal;
+            font-size: 14px;
+            color: #57606a;
+            margin-top: 4px;
+        }
         .footer {
-            margin-top: 28px;
+            margin-top: 40px;
             text-align: center;
             font-size: 14px;
             color: #8b949e;
             border-top: 1px solid #d0d7de;
             padding-top: 16px;
         }
-        code { background: #e9ecef; padding: 2px 8px; font-size: 14px; }
         @media (prefers-color-scheme: dark) {
             body { background: #0d1117; color: #c9d1d9; }
-            .file-list { background: #161b22; border-color: #30363d; }
-            .file-item { border-bottom-color: #21262d; }
-            .file-item:hover { background: #1c2128; }
-            .file-name { color: #58a6ff; }
-            .file-size { color: #8b949e; }
-            .download-btn { background: #238636; }
-            .download-btn:hover { background: #2ea043; }
+            .nav-item { background: #161b22; border-color: #30363d; color: #58a6ff; }
+            .nav-item:hover { background: #1c2128; }
+            .nav-item .desc { color: #8b949e; }
             .footer { border-top-color: #30363d; color: #8b949e; }
             .sub { color: #8b949e; }
-            .file-ext { background: #21262d; color: #c9d1d9; }
-            code { background: #21262d; }
+        }
+        @media (max-width: 500px) {
+            .nav-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <h1>下载仓库</h1>
-    <div class="sub">文件存放于 <code>download</code> 文件夹，点击即下载</div>
+    <h1>114514ZYHS的测试页</h1>
+    <div class="sub">导航 · 全部页面均托管于 GitHub Pages</div>
 
-    <div id="fileContainer" class="file-list"></div>
-    <div class="footer">114514zyhs · 下载走 sjkh.cc.cd 域名</div>
+    <div class="nav-grid">
+        <!-- 下载中心 -->
+        <a href="/download/" class="nav-item">
+            下载中心
+            <span class="desc">浏览并下载文件</span>
+        </a>
+        <!-- 2FA 页面 -->
+        <a href="/2fa.html" class="nav-item">
+            2FA 页面
+            <span class="desc">2fa.html</span>
+        </a>
+        <!-- DeepSeek 页面 1 -->
+        <a href="/deepseek_html_20260731_cc7b28.html" class="nav-item">
+            DeepSeek 2026-07-31
+            <span class="desc">deepseek_html_20260731_cc7b28.html</span>
+        </a>
+        <!-- DeepSeek 页面 2 -->
+        <a href="/deepseek_html_20260802_33922c.html" class="nav-item">
+            DeepSeek 2026-08-02
+            <span class="desc">deepseek_html_20260802_33922c.html</span>
+        </a>
+        <!-- DeepSeek 页面 3 -->
+        <a href="/deepseek_html_20260828_dbd822.html" class="nav-item">
+            DeepSeek 2026-08-28
+            <span class="desc">deepseek_html_20260828_dbd822.html</span>
+        </a>
+        <!-- 图片（可选，但也可展示） -->
+        <a href="/IMG_20250712_123835.jpg" class="nav-item" target="_blank">
+            示例图片
+            <span class="desc">IMG_20250712_123835.jpg</span>
+        </a>
+        <!-- 可继续添加更多链接 -->
+    </div>
 
-    <script>
-        // ============================================================
-        // 你的文件列表（根据你上传的文件手动填写）
-        // 格式：{ name: '文件名', size: '文件大小', type: '分类标签' }
-        // ============================================================
-        const files = [
-    { name: '20250404_173525_0003.JPG', size: '未知', type: '图片' },
-    { name: '2158.zip', size: '未知', type: '压缩包' },
-    { name: '23c99eaa0c257b51d154235593c0b30c1630132346.jpg', size: '未知', type: '图片' },
-    { name: '2fa.html', size: '未知', type: '网页' },
-    { name: 'adia64.apk', size: '未知', type: '应用' },
-    { name: 'mfrc522.pdf', size: '未知', type: 'PDF' }
-];
-        // ============================================================
-
-        const container = document.getElementById('fileContainer');
-
-        if (files.length === 0) {
-            container.innerHTML = `<div style="padding:40px 20px;text-align:center;color:#57606a;">当前列表为空，请在代码中 <code>files</code> 数组里添加文件信息。</div>`;
-        } else {
-            let html = '';
-            files.forEach(file => {
-                const downloadUrl = `/download/${encodeURIComponent(file.name)}`;
-                html += `
-                    <div class="file-item">
-                        <div class="file-info">
-                            <span class="file-ext">${file.type || '文件'}</span>
-                            <a href="${downloadUrl}" class="file-name" target="_blank">${file.name}</a>
-                            <span class="file-size">(${file.size})</span>
-                        </div>
-                        <a href="${downloadUrl}" class="download-btn" download>下载</a>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
-        }
-    </script>
+    <div class="footer">44444448.xyz · 114514ZYHS</div>
 </body>
 </html>
