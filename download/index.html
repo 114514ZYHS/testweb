@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>下载中心 - 114514ZYHS</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 920px;
+            margin: 30px auto;
+            padding: 0 20px;
+            background: #f0f2f5;
+            color: #1e1e1e;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            border-bottom: 2px solid #d0d7de;
+            padding-bottom: 12px;
+            margin-bottom: 6px;
+        }
+        .sub {
+            color: #57606a;
+            font-size: 15px;
+            margin-top: -6px;
+            margin-bottom: 24px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 16px;
+            color: #0969da;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .file-list {
+            background: #ffffff;
+            border: 1px solid #d0d7de;
+        }
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+            border-bottom: 1px solid #e1e4e8;
+        }
+        .file-item:last-child { border-bottom: none; }
+        .file-item:hover { background: #f6f8fa; }
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+        .file-ext {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 2px 10px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #24292e;
+            font-family: monospace;
+        }
+        .file-name {
+            font-weight: 500;
+            color: #0969da;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .file-name:hover { text-decoration: underline; }
+        .file-size {
+            color: #57606a;
+            font-size: 14px;
+        }
+        .download-btn {
+            background: #2da44e;
+            color: #fff;
+            border: none;
+            padding: 6px 18px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 0;
+        }
+        .download-btn:hover { background: #22863a; }
+        .footer {
+            margin-top: 28px;
+            text-align: center;
+            font-size: 14px;
+            color: #8b949e;
+            border-top: 1px solid #d0d7de;
+            padding-top: 16px;
+        }
+        code { background: #e9ecef; padding: 2px 8px; font-size: 14px; }
+        @media (prefers-color-scheme: dark) {
+            body { background: #0d1117; color: #c9d1d9; }
+            .file-list { background: #161b22; border-color: #30363d; }
+            .file-item { border-bottom-color: #21262d; }
+            .file-item:hover { background: #1c2128; }
+            .file-name { color: #58a6ff; }
+            .file-size { color: #8b949e; }
+            .download-btn { background: #238636; }
+            .download-btn:hover { background: #2ea043; }
+            .footer { border-top-color: #30363d; color: #8b949e; }
+            .sub { color: #8b949e; }
+            .file-ext { background: #21262d; color: #c9d1d9; }
+            code { background: #21262d; }
+            .back-link { color: #58a6ff; }
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-link">← 返回主页</a>
+    <h1>下载中心</h1>
+    <div class="sub">文件列表（手动维护，点击下载）</div>
+
+    <div id="fileContainer" class="file-list">
+        <!-- 内容由 JavaScript 动态渲染 -->
+    </div>
+    <div class="footer">44444448.xyz/download/ · 114514ZYHS</div>
+
+    <script>
+        // ============================================================
+        // 文件列表（请根据实际文件手动增删）
+        // 格式：{ name: '文件名', size: '大小（可选）', type: '分类标签' }
+        // ============================================================
+        const files = [
+            { name: '20250404_173525_0003.JPG', size: '未知', type: '图片' },
+            { name: '2158.zip', size: '未知', type: '压缩包' },
+            { name: '23c99eaa0c257b51d154235593c0b30c1630132346.jpg', size: '未知', type: '图片' },
+            { name: '2fa.html', size: '未知', type: '网页' },
+            { name: 'adia64.apk', size: '未知', type: '应用' },
+            { name: 'mfrc522.pdf', size: '未知', type: 'PDF' }
+        ];
+        // ============================================================
+
+        const container = document.getElementById('fileContainer');
+
+        if (files.length === 0) {
+            container.innerHTML = `<div style="padding:40px 20px;text-align:center;color:#57606a;">暂无文件</div>`;
+        } else {
+            let html = '';
+            files.forEach(file => {
+                // 下载路径相对于当前目录，直接使用文件名
+                const downloadUrl = `./${encodeURIComponent(file.name)}`;
+                html += `
+                    <div class="file-item">
+                        <div class="file-info">
+                            <span class="file-ext">${file.type || '文件'}</span>
+                            <a href="${downloadUrl}" class="file-name" target="_blank">${file.name}</a>
+                            <span class="file-size">(${file.size})</span>
+                        </div>
+                        <a href="${downloadUrl}" class="download-btn" download>下载</a>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
